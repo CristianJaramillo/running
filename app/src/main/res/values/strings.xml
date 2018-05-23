@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Running</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- Drawable Vectors -->
+    <string name="ic_location_on">Location On</string>
+
+    <!-- Main Activity -->
+    <string name="account_name_main_activity">Cristian Jaramillo</string>
+    <string name="account_location_main_activity">Mexico City</string>
+
+</resources>
