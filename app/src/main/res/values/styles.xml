@@ -11,6 +11,41 @@
         <!--<item name="android:textColorSecondary">@color/colorGreyDark</item>-->
         <!--<item name="android:textColorHint">@color/colorWhite</item>-->
 
+        <!-- Customize your theme here. -->
+        <item name="cardViewStyle">@style/CardView</item>
+
+        <!--
+        All dialogs will default to Theme.DARK with this set to true.
+        -->
+        <item name="md_dark_theme">false</item>
+
+        <!--
+            This overrides the default dark or light dialog background color.
+            Note that if you use a dark color here, you should set md_dark_theme to
+            true so text and selectors look visible
+        -->
+        <!--<item name="md_background_color">@color/colorWhite</item>-->
+
+        <!--
+        By default, the title text color is derived from the
+        ?android:textColorPrimary system attribute.
+        -->
+        <item name="md_title_color">@color/colorPrimaryDark</item>
+
+
+        <!--
+            By default, the content text color is derived from the
+            ?android:textColorSecondary system attribute.
+        -->
+        <item name="md_content_color">@color/colorPrimaryText</item>
+
+        <!--
+        By default, the positive action text color is derived
+        from the colorAccent attribute of AppCompat or android:colorAccent
+        attribute of the Material theme.
+        -->
+        <item name="md_positive_color">@color/colorAccent</item>
+
     </style>
 
     <style name="CommonTextView" parent="android:Widget.TextView">
