@@ -2,6 +2,10 @@ package mx.jccg.running.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import mx.jccg.running.R;
 
 /**
  *
@@ -12,11 +16,25 @@ public final class DeviceViewHolder extends RecyclerView.ViewHolder implements V
 
     /**
      *
+     */
+    private ImageView iconImageView;
+
+    /**
+     *
+     */
+    private TextView labelTextView;
+
+    /**
+     *
      * @param itemView
      */
     public DeviceViewHolder(View itemView)
     {
         super(itemView);
+
+        iconImageView = itemView.findViewById(R.id.ic_bluetooth_image_view);
+        labelTextView = itemView.findViewById(R.id.device_name_text_view);
+
     }
 
     /**
@@ -29,4 +47,40 @@ public final class DeviceViewHolder extends RecyclerView.ViewHolder implements V
 
     }
 
+    /**
+     *
+     * @return
+     */
+    public ImageView getIconImageView() {
+        return iconImageView;
+    }
+
+    /**
+     *
+     * @param iconImageView
+     */
+    public void setIconImageView(ImageView iconImageView) {
+        this.iconImageView = iconImageView;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public TextView getLabelTextView() {
+        return labelTextView;
+    }
+
+    /**
+     *
+     * @param labelTextView
+     */
+    public void setLabelTextView(TextView labelTextView) {
+        this.labelTextView = labelTextView;
+    }
+
 }
+
+
+
+

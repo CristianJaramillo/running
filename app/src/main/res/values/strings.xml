@@ -6,9 +6,12 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <!-- Drawable Vectors -->
+    <string name="ic_account">Account</string>
+    <string name="ic_background">Background</string>
     <string name="ic_location_on">Location On</string>
     <string name="ic_bluetooth">Bluetooth</string>
     <string name="ic_refresh">Refresh</string>
+    <string name="ic_chevron_right">Chevron Right</string>
 
     <string name="title_dialog_activity_splash_screen">Running</string>
     <string name="content_dialog_activity_splash_screen">Es necesario aceptar los permisos para poder utilizar correctamente la aplicación</string>
