@@ -52,11 +52,11 @@
     </style>
 
     <style name="CommonTextView" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
     </style>
 
-    <style name="CommonPrimaryDarkTextView" parent="android:Widget.TextView">
-        <item name="android:textColor">@color/colorPrimaryTextAccent</item>
+    <style name="CommonPrimaryTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:textSize">32sp</item>
     </style>
 
