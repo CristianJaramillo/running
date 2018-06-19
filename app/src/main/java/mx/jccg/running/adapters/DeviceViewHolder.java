@@ -58,7 +58,7 @@ public final class DeviceViewHolder extends RecyclerView.ViewHolder implements V
 
         Log.i(TAG, getLabelTextView().getText().toString());
 
-        intent.putExtra("bluetooth_device", getLabelTextView().getText());
+        intent.putExtra("device_name", getLabelTextView().getText());
 
         view.getContext().startActivity(intent);
         ((Activity)view.getContext()).finish();

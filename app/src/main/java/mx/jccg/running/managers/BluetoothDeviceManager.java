@@ -6,6 +6,7 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -19,6 +20,8 @@ import mx.jccg.running.adapters.DeviceAdapter;
  */
 public final class BluetoothDeviceManager
 {
+
+    private static final String TAG = BluetoothDeviceManager.class.getName();
 
     private static BluetoothDeviceManager instance;
 
@@ -87,10 +90,12 @@ public final class BluetoothDeviceManager
         for (BluetoothDevice bluetoothDevice : getBluetoothDevices())
         {
             if(bluetoothDevice.getName().equals(deviceName) || bluetoothDevice.getAddress().equals(deviceName))
-                this.mBluetoothDevice = bluetoothDevice;
+            {
+                return bluetoothDevice;
+            }
         }
 
-        return this.mBluetoothDevice;
+        return null;
     }
 
     /**
