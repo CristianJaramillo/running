@@ -2,6 +2,7 @@ package mx.jccg.running.adapters;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.ArraySet;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,6 +38,15 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceViewHolder>
      *
      */
     private Set<BluetoothDevice> bluetoothDevices;
+
+    /**
+     *
+     * @param context
+     */
+    public DeviceAdapter(Context context) {
+        this.context = context;
+        this.bluetoothDevices = new HashSet<>();
+    }
 
     /**
      *
@@ -77,12 +88,9 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceViewHolder>
         final List<BluetoothDevice> list = new ArrayList();
 
         list.addAll(bluetoothDevices);
-
         final BluetoothDevice bluetoothDevice = list.get(position);
-
-        Log.i(TAG, String.format("| %20s | %17s |", bluetoothDevice.getName(), bluetoothDevice.getAddress()));
-
-        holder.getLabelTextView().setText(bluetoothDevice.getName());
+        final String deviceName = (bluetoothDevice.getName() == null || bluetoothDevice.getName().isEmpty()) ? bluetoothDevice.getAddress() : bluetoothDevice.getName();
+        holder.getLabelTextView().setText(deviceName);
     }
 
     /**
@@ -109,4 +117,14 @@ public class DeviceAdapter extends RecyclerView.Adapter<DeviceViewHolder>
     public void setBluetoothDevices(Set<BluetoothDevice> bluetoothDevices) {
         this.bluetoothDevices = bluetoothDevices;
     }
+
+    /**
+     *
+     * @param bluetoothDevice
+     */
+    public void addBluetoothDevice(BluetoothDevice bluetoothDevice)
+    {
+        this.bluetoothDevices.add(bluetoothDevice);
+    }
+
 }

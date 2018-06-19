@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.ArraySet;
 import android.util.Log;
 import android.view.View;
 
+import java.util.HashSet;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -69,6 +71,7 @@ public class SelectDeviceActivity extends AppCompatActivity implements View.OnCl
 
         recyclerViewDevicePaired = findViewById(R.id.device_paired_recycler_view);
         recyclerViewDevicePaired.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerViewDevice = findViewById(R.id.device_recycler_view);
         recyclerViewDevice.setLayoutManager(new LinearLayoutManager(this));
 
@@ -99,6 +102,17 @@ public class SelectDeviceActivity extends AppCompatActivity implements View.OnCl
             recyclerViewDevicePaired.setAdapter(deviceAdapterPaired);
         }
 
+        if(deviceAdapter == null)
+        {
+            deviceAdapter = new DeviceAdapter(this);
+            bluetoothDeviceManager.startDiscovery(deviceAdapter);
+            recyclerViewDevice.setAdapter(deviceAdapter);
+        } else {
+            deviceAdapter.notifyDataSetChanged();
+            recyclerViewDevice.setAdapter(deviceAdapter);
+        }
+
+
     }
 
     /**
@@ -108,12 +122,6 @@ public class SelectDeviceActivity extends AppCompatActivity implements View.OnCl
     protected void onStart()
     {
         super.onStart();
-
-        for (BluetoothDevice bluetoothDevice : bluetoothDeviceManager.getBondedDevices())
-            Log.i(TAG, String.format("| %20s | %17s |", bluetoothDevice.getName(), bluetoothDevice.getAddress()));
-
-        bluetoothDeviceManager.startDiscovery();
-
     }
 
     /**
@@ -123,7 +131,9 @@ public class SelectDeviceActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view)
     {
-        startActivity(MainActivity.class);
+//        startActivity(MainActivity.class);
+        deviceAdapter.notifyDataSetChanged();
+        recyclerViewDevice.setAdapter(deviceAdapter);
     }
 
     /**

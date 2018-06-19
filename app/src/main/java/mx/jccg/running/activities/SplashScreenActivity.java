@@ -1,26 +1,27 @@
 package mx.jccg.running.activities;
 
+import android.Manifest;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import mx.jccg.running.R;
+import mx.jccg.running.configs.RunningConfig;
 
 /**
  *
  * @author Cristian Jaramillo (cristian_gerar@hotmail.com)
  */
-public class SplashScreenActivity extends AppCompatActivity implements MaterialDialog.SingleButtonCallback
+public class SplashScreenActivity extends AppCompatActivity
 {
 
     /**
@@ -44,16 +45,15 @@ public class SplashScreenActivity extends AppCompatActivity implements MaterialD
     {
         super.onStart();
 
-        startActivity(SelectDeviceActivity.class);
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&  ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+        {
+            startActivity(SelectDeviceActivity.class);
 
-//        new MaterialDialog.Builder(SplashScreenActivity.this)
-//                .title(getString(R.string.title_dialog_activity_splash_screen))
-//                .content(getString(R.string.content_dialog_activity_splash_screen))
-//                .positiveText(getString(R.string.positive_text_dialog_activity_splash_screen))
-//                .onPositive(this)
-//                .cancelable(false)
-//                .canceledOnTouchOutside(false)
-//                .show();
+            return;
+        }
+
+        ActivityCompat.requestPermissions(SplashScreenActivity.this, RunningConfig.getPermissions(), 1);
+
     }
 
     /**
@@ -87,18 +87,19 @@ public class SplashScreenActivity extends AppCompatActivity implements MaterialD
             }
         }, 3000);
 
-
-
     }
 
     /**
      *
-     * @param dialog
-     * @param which
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
      */
     @Override
-    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which)
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
     {
-       startActivity(SelectDeviceActivity.class);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        this.onStart();
     }
+
 }

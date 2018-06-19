@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.annotation.NonNull;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.Timer;
+
+import mx.jccg.running.adapters.DeviceAdapter;
 
 /**
  *
@@ -23,8 +26,11 @@ public final class BluetoothDeviceManager
 
     private Activity activity;
     private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothDevice mBluetoothDevice = null;
     private Timer timer;
     private boolean statBluetoothDeviceScan = false;
+
+    private static Set<BluetoothDevice> bluetoothDevices = new LinkedHashSet<>();
 
     /**
      *
@@ -74,20 +80,59 @@ public final class BluetoothDeviceManager
 
     /**
      *
+     * @param deviceName
      */
-    public void startDiscovery()
+    public BluetoothDevice findBluetoothDevice(String deviceName)
+    {
+        for (BluetoothDevice bluetoothDevice : getBluetoothDevices())
+        {
+            if(bluetoothDevice.getName().equals(deviceName) || bluetoothDevice.getAddress().equals(deviceName))
+                this.mBluetoothDevice = bluetoothDevice;
+        }
+
+        return this.mBluetoothDevice;
+    }
+
+    /**
+     *
+     * @param bluetoothDevice
+     */
+    public void addBluetoothDevice(BluetoothDevice bluetoothDevice)
+    {
+        bluetoothDevices.add(bluetoothDevice);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public Set<BluetoothDevice> getBluetoothDevices()
+    {
+        bluetoothDevices.addAll(getBondedDevices());
+        return bluetoothDevices;
+    }
+
+    /**
+     *
+     * @param deviceAdapter
+     */
+    public void startDiscovery(final DeviceAdapter deviceAdapter)
     {
         if (mBluetoothAdapter.isDiscovering())
         {
+            mBluetoothAdapter.cancelDiscovery();
             timer.cancel();
         }
 
         mBluetoothAdapter.startDiscovery();
 
         final IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        activity.registerReceiver(new BluetoothDeviceBroadcastReceiver(), filter);
+        activity.registerReceiver(new BluetoothDeviceBroadcastReceiver(deviceAdapter), filter);
 
         timer.schedule(new BluetoothDeviceScanTimerTask(mBluetoothAdapter), 30000L);
     }
 
+    public BluetoothAdapter getmBluetoothAdapter() {
+        return mBluetoothAdapter;
+    }
 }

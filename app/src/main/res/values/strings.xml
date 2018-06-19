@@ -19,7 +19,7 @@
     <string name="positive_text_dialog_activity_splash_screen">Continuar</string>
 
     <!-- Main Activity -->
-    <string name="account_name_main_activity">Cristian Jaramillo</string>
+    <string name="account_name_main_activity">Alba Almaraz</string>
     <string name="account_location_main_activity">Mexico City</string>
 
     <string name="text_device_paired_activity_select_device">Dispositivos Emparejados</string>
@@ -28,5 +28,8 @@
 
     <!-- Device Item Recycler View -->
     <string name="device_name_recycler_view">SC-AKX100</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
