@@ -42,7 +42,7 @@ public class StartCountDownTimer extends CountDownTimer
     @Override
     public void onTick(long l)
     {
-        if(l == -1L)
+        if(!MainActivity.START)
             onFinish();
         else {
             long second = ((MILLIS_IN_FUTURE - l) / COUNT_DOWN_INTERVAL) % 60;

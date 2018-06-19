@@ -2,7 +2,10 @@ package mx.jccg.running.activities;
 
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +26,7 @@ import mx.jccg.running.R;
 import mx.jccg.running.managers.BluetoothDeviceManager;
 import mx.jccg.running.os.BluetoothAsyncTask;
 import mx.jccg.running.os.BluetoothHandler;
+import mx.jccg.running.time.StartCountDownTimer;
 
 /**
  *
@@ -72,6 +76,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      *
+     */
+    private StartCountDownTimer startCountDownTimer;
+
+    /**
+     *
+     */
+    public static Boolean START = null;
+
+    /**
+     *
      * @param savedInstanceState
      */
     @Override
@@ -94,9 +108,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .findBluetoothDevice(getIntent()
                         .getStringExtra("device_name"));
 
-        Log.i(TAG, String.format("%s - %s", bluetoothDevice.getName(), bluetoothDevice.getAddress()));
+        startCountDownTimer = new StartCountDownTimer(timeTextView);
 
-       bluetoothAsyncTask = new BluetoothAsyncTask(this, bluetoothDevice, thermometerTextView, bpmTextView);
+        bluetoothAsyncTask = new BluetoothAsyncTask(this, bluetoothDevice, thermometerTextView, bpmTextView);
     }
 
     /**
@@ -155,7 +169,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view)
     {
+        if(START == null)
+        {
+            START = true;
 
+            startCountDownTimer.start();
+
+            startFloatingActionButton.setBackgroundTintList(ColorStateList
+                    .valueOf(Color.parseColor("#EC3951")));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startFloatingActionButton.setImageDrawable(getDrawable(R.drawable.ic_stop));
+            }
+
+        } else if(START) {
+
+            START = false;
+
+            startCountDownTimer.start();
+
+            startFloatingActionButton.setBackgroundTintList(ColorStateList
+                    .valueOf(Color.parseColor("#8BE559")));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startFloatingActionButton.setImageDrawable(getDrawable(R.drawable.ic_play_arrow));
+            }
+
+        } else {
+
+            START = true;
+
+            startFloatingActionButton.setBackgroundTintList(ColorStateList
+                    .valueOf(Color.parseColor("#EC3951")));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                startFloatingActionButton.setImageDrawable(getDrawable(R.drawable.ic_stop));
+            }
+
+        }
     }
 
 
